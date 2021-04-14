@@ -2,7 +2,7 @@
     <div
         class="av-section-contaner"
         :style="{
-            backgroundImage: `url(/chuncks/${background})`
+            backgroundImage: `url(./chuncks/${background})`
         }"
     >
         <div class="av-center-text">

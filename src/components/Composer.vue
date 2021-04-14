@@ -25,7 +25,7 @@
                     class='av-composer-column'
                     :centered="centered[index] != null ? centered[index] : 'center'"
                     :key="index + current"
-                    :src="'/chuncks/show-more/' + current"
+                    :src="'./chuncks/show-more/' + current"
                 />
             </div>
         </div>

@@ -49,7 +49,7 @@
                  <div
                     class="left-side"
                     :style="{
-                        backgroundImage: 'url(/chuncks/6b62bef7c7d356f5f053b26cc3b27330.png)'
+                        backgroundImage: 'url(./chuncks/6b62bef7c7d356f5f053b26cc3b27330.png)'
                     }"
                 >
 
@@ -57,7 +57,7 @@
                  <div
                     class="right-side"
                     :style="{
-                        backgroundImage: 'url(/chuncks/0cd33edda46e50c7c54b603fb89fef55.png)'
+                        backgroundImage: 'url(./chuncks/0cd33edda46e50c7c54b603fb89fef55.png)'
                     }"
                 >
 
