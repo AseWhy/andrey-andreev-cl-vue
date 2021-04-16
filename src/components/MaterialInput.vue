@@ -52,6 +52,7 @@
 <style scoped>
   .av-ui-material-input {
     position: relative;
+    --color: black;
   }
 
   .av-ui-material-input-label {
@@ -65,6 +66,7 @@
     font-family: Montserrat;
     font-style: normal;
     font-weight: 300;
+    color: var(--color);
     font-size: 1.5rem;
   }
 
@@ -83,6 +85,17 @@
     font-size: 1.5rem;
     outline: none;
     border: none;
-    border-bottom: 1px solid;
+    color: var(--color);
+    border-bottom: 1px solid var(--color);
   }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    background-clip: text;
+    color: var(--color);
+    border-bottom: 1px solid var(--color);
+  }
+
 </style>

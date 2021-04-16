@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 
 import Contacts from '../components/pages/Contacts.vue';
 import Main from '../components/pages/Main.vue';
+import About from '../components/pages/About.vue';
 import PageNotFound from '../components/pages/PageNotFound.vue';
 
 const routes = [
@@ -19,6 +20,14 @@ const routes = [
     component: Contacts,
     meta: {
         title: 'Contacts'
+    }
+  },
+  {
+    path: "/about",
+    name: "About-the-studio",
+    component: About,
+    meta: {
+        title: 'About the studio'
     }
   },
   {

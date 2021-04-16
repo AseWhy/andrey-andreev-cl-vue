@@ -23,7 +23,7 @@
                 <img
                     v-for="(current, index) in sample"
                     class='av-composer-column'
-                    :centered="centered[index] != null ? centered[index] : 'center'"
+                    :centered="centered != null && centered[index] != null ? centered[index] : 'center'"
                     :key="index + current"
                     :src="'./chuncks/show-more/' + current"
                 />

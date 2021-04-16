@@ -1,58 +1,16 @@
 <template>
-    <div class="av-dropdown-login">
-        <h4 class="dropdown-login-header">
-            Login
+    <div class="av-dropdown-registration">
+        <h4 class="dropdown-registration-header">
+            Sign Up
         </h4>
-        <p class="dropdown-login-tip">
-            Not a registered user yet? 
+        <p class="dropdown-registration-tip">
+            Already have an account?
             <span
                 @click="$emit('switch')"
             >
-                Sign Up
+                Login
             </span>
         </p>
-
-        <MaterialInput
-            class='dropdown-login-material-input'
-            label='Login'
-            v-model="login"
-        />
-
-        <MaterialInput
-            class='dropdown-login-material-input'
-            label="Password"
-            type='password'
-            v-model="password"
-        />
-
-        <div class="side">
-            <div class="leftside">
-                <span 
-                    class="checkbox"
-                    @click="remember = !remember"
-                >
-                    {{ remember ? '✓' : ' ' }}
-                </span>
-
-                Remember me
-            </div>
-
-            <div class="right-side">
-                <RouterLink to="/">
-                    Forgot password?
-                </RouterLink>
-            </div>
-        </div>
-
-        <button class="login">
-            Login
-        </button>
-
-        <div class="separator">
-            <hr>
-            or
-            <hr>
-        </div>
 
         <div class="variants">
             <div class="sign-up-facebook sign-up-service">
@@ -74,6 +32,36 @@
             </div>
         </div>
 
+        <div class="separator">
+            <hr>
+            or
+            <hr>
+        </div>
+
+        <MaterialInput
+            class='dropdown-registration-material-input'
+            label='Email'
+            v-model="email"
+        />
+
+        <MaterialInput
+            class='dropdown-registration-material-input'
+            label='Password'
+            type='password'
+            v-model="password"
+        />
+
+        <MaterialInput
+            class='dropdown-registration-material-input'
+            label="Confirm password"
+            type='password'
+            v-model="confirm"
+        />
+
+        <button class="registration">
+            Sign Up
+        </button>
+
         <p class="privacy-tip">
             By logging in, you agree to our Terms of Use and <RouterLink to="/">Privacy Policy</RouterLink>
         </p>
@@ -88,8 +76,9 @@
     export default {
         data(){
             return {
-                login: '',
+                email: '',
                 password: '',
+                confirm: '',
                 remember: false,
                 FaceBook,
                 Google
@@ -103,12 +92,12 @@
 </script>
 
 <style scoped>
-    .dropdown-login-material-input {
+    .dropdown-registration-material-input {
         margin: 1rem 0;
         --color: rgba(0, 0, 0, 0.5);
     }
 
-    .dropdown-login-header {
+    .dropdown-registration-header {
         font-family: Montserrat;
         font-style: normal;
         font-weight: 300;
@@ -116,16 +105,12 @@
         margin: 0 0 1rem;
     }
 
-    .dropdown-login-tip {
+    .dropdown-registration-tip {
         font-family: Montserrat;
         font-style: normal;
         font-weight: 300;
         font-size: 0.875rem;
         margin: 0;
-    }
-
-    .dropdown-login-tip > span {
-        text-decoration: underline;
     }
 
     .side {
@@ -172,7 +157,7 @@
         font-weight: 300;
         font-size: 0.875rem;
         color: rgba(0, 0, 0, 0.5);
-        margin: 2rem 0 0;
+        margin: 1rem 0;
         width: min(30vw, 250pt);
         word-break: break-all;
         white-space: break-spaces;
@@ -188,10 +173,9 @@
         font-size: 1.5rem;
         line-height: 29px;
         color: rgba(0, 0, 0, 0.5);
-        margin: 0 0 1rem;
     }
 
-    .login {
+    .registration {
         padding: 0.5rem 3.5rem;
         font-family: Montserrat;
         font-style: normal;
@@ -205,18 +189,22 @@
         margin: .75rem;
     }
 
-    .login:hover {
+    .dropdown-registration-tip > span {
+        text-decoration: underline;
+    }
+
+    .registration:hover {
         background-color: rgba(66, 253, 119, 0.55);
     }
 
-    .av-dropdown-login {
+    .av-dropdown-registration {
         position: absolute;
         top: 3.5rem;
         left: 0;
         z-index: -1;
         background: white;
         text-align: center;
-        padding: 0 2.5rem 2.5rem;
+        padding: 0 2.5rem;
         border-radius: 0 0 5rem 5rem;
         box-shadow: 0px 10px 10px gray;
         cursor: default;
@@ -235,7 +223,7 @@
         background-color: whitesmoke;
     }
 
-    .av-dropdown-login {
+    .av-dropdown-registration {
         white-space: pre;
         left: -600%;
     }

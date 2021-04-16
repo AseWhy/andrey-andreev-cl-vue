@@ -34,7 +34,14 @@
 
           <transition name='menu-fade'>
             <DropLogin
-              v-if="getLoginState"
+              v-if="getLoginState && actionType == 0"
+              @switch="actionType = 1"
+            />
+          </transition>
+          <transition name='menu-fade'>
+            <DropRegistration
+              v-if="getLoginState && actionType == 1"
+              @switch="actionType = 0"
             />
           </transition>
       </div>
@@ -51,6 +58,7 @@
 
   import DropDown from "../components/DropDown";
   import DropLogin from "../components/DropLogin";
+  import DropRegistration from "../components/DropRegistration";
 
 
   export default {
@@ -70,7 +78,7 @@
       },
 
       hidedLogin(e){
-        if(this.getLoginState && e.path.find(e => e?.classList != null && e.classList.contains('av-dropdown-login')) == null) {
+        if(this.getLoginState && e.path.find(e => e?.classList != null && (e.classList.contains('av-dropdown-login') || e.classList.contains('av-dropdown-registration'))) == null) {
           document.removeEventListener('click', this.hideLogin);
 
           this.hideLogin();
@@ -80,6 +88,7 @@
 
     data(){
       return {
+        actionType: 0,
         LeftMenu,
         LeftMenuRevert,
         Logo,
@@ -89,7 +98,8 @@
 
     components: {
       DropDown,
-      DropLogin
+      DropLogin,
+      DropRegistration
     }
   }
 </script>

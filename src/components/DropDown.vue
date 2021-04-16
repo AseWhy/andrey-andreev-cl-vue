@@ -50,6 +50,7 @@
         font-style: normal;
         font-weight: 500;
         font-size: 1.5rem;
+        color: rgba(0, 0, 0, 0.75);
         cursor: pointer;
     }
 
