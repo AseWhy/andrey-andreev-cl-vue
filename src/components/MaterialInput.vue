@@ -13,8 +13,8 @@
       ref="input"
       :type="type"
       :disabled="disabled != null ? disabled : false"
-      :value="value"
-      @input="$emit('input', $event.target.value)"
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
       @focus="focus = true"
       @focusout="focusout($event)"
       @keypress="$event.keyCode == 13 ? focusout($event, true) : null"
@@ -24,22 +24,23 @@
 
 <script>
   export default {
-    props: ['label', 'type', 'disabled', 'value', 'focused' ],
+    props: ['label', 'type', 'disabled', 'modelValue', 'focused' ],
 
     data(){
       return {
-        focus: this.focused || this.value && this.value.length != 0 || false
+        focus: this.focused || this.modelValue && this.modelValue.length != 0 || false
       }
     },
 
     mounted(){
-      if(this.focused)
+      if(this.focused) {
         this.$refs.input.focus();
+      }
     },
 
     methods: {
       focusout(event, kp){
-        if(!kp && event.target.value.trim() == '') {
+        if(!kp && event.target.modelValue?.trim() == '') {
           this.$data.focus = false;
         }
 
@@ -97,5 +98,4 @@
     color: var(--color);
     border-bottom: 1px solid var(--color);
   }
-
 </style>

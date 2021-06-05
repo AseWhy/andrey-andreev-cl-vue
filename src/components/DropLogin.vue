@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <button class="login">
+        <button class="login" @click="onLogin">
             Login
         </button>
 
@@ -81,9 +81,12 @@
 </template>
 
 <script>
+    import 'mosha-vue-toastify/dist/style.css';
     import MaterialInput from "./MaterialInput";
     import Google from "../assets/img/vector/google.svg";
     import FaceBook from "../assets/img/vector/facebook.svg";
+    import { mapActions } from "vuex";
+    import { createToast } from 'mosha-vue-toastify';
 
     export default {
         data(){
@@ -91,6 +94,7 @@
                 login: '',
                 password: '',
                 remember: false,
+                active: true,
                 FaceBook,
                 Google
             }
@@ -98,7 +102,31 @@
         
         components: {
             MaterialInput
-        }
+        },
+
+        methods: {
+            ...mapActions([ 'doLogin' ]),
+
+            async onLogin() {
+                this.$data.active = false;
+
+                try {
+                    if(this.remember) {
+                        localStorage.setItem('login', this.login);
+                    }
+
+                    await this.doLogin({ login: this.login, password: this.password });
+
+                    createToast("Вы успешно вошли как: " + this.login, { hideProgressBar: true })
+                } catch(e) {
+                    createToast("Ошибка при попытке входа: " + e.message, { type: 'danger', hideProgressBar: true });
+
+                    console.error(e);
+                } finally {
+                    this.$data.active = true;
+                }
+            }
+        },
     }
 </script>
 

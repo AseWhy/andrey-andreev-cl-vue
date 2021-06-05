@@ -25,25 +25,61 @@
 
       <div
         class="profile-menu-button"
+        v-if="getCurrentUser == null"
         @click="showdLogin"
       >
         <img 
           class='profile-menu-action'
           :src="Login"
         >
+      
+        <transition name='menu-fade'>
+          <DropLogin
+            v-if="getLoginState && actionType == 0"
+            @switch="actionType = 1"
+          />
+        </transition>
 
-          <transition name='menu-fade'>
-            <DropLogin
-              v-if="getLoginState && actionType == 0"
-              @switch="actionType = 1"
-            />
-          </transition>
-          <transition name='menu-fade'>
-            <DropRegistration
-              v-if="getLoginState && actionType == 1"
-              @switch="actionType = 0"
-            />
-          </transition>
+        <transition name='menu-fade'>
+          <DropRegistration
+            v-if="getLoginState && actionType == 1"
+            @switch="actionType = 0"
+          />
+        </transition>
+      </div>
+
+      <div
+        class="profile-menu-lk"
+        @click="showDropdown"
+        v-else-if="getCurrentUser != -1"
+      >
+        <img
+          class='profile-menu-avatar'
+          :src="Avatar"
+        >
+
+        <div class="av-prfile-menu-fle">
+          <span class="login">
+            {{ getCurrentUser.login }}
+          </span>
+
+          <span class="balance">
+            {{ getCurrentUser.balance }} $
+          </span>
+        </div>
+
+        <transition name='menu-fade'>
+          <ProfileDropDown
+            v-if="DropDownShow"
+          />
+        </transition>
+      </div>
+
+      <div
+        class="profile-menul-loading"
+        v-else
+      >
+
       </div>
     </div>
   </div>
@@ -53,16 +89,18 @@
   import LeftMenu from '../assets/img/vector/left-menu.svg';
   import LeftMenuRevert from '../assets/img/vector/left-menu-revert.svg';
   import Login from '../assets/img/vector/profile.svg';
+  import Avatar from '../assets/img/vector/user.svg';
   import Logo from '../assets/img/logo.png'
   import { mapActions, mapGetters } from 'vuex';
 
   import DropDown from "../components/DropDown";
   import DropLogin from "../components/DropLogin";
   import DropRegistration from "../components/DropRegistration";
+  import ProfileDropDown from './ProfileDropDown';
 
 
   export default {
-    computed: mapGetters([ 'getLeftMenuState', 'getLoginState' ]),
+    computed: mapGetters([ 'getLeftMenuState', 'getLoginState', 'getCurrentUser' ]),
 
     methods: {
       ...mapActions([ 'showLogin', 'hideLogin', 'switchLeftMenu' ]),
@@ -83,23 +121,42 @@
 
           this.hideLogin();
         }
+      },
+
+      showDropdown(){
+        if(!this.DropDownShow) {
+          setTimeout(() => {
+            this.$data.DropDownShow = true;
+            
+            document.addEventListener('click', this.hideDropdown)
+          }, 0);
+        }
+      },
+
+      hideDropdown(){
+        document.removeEventListener('click', this.hideDropdown);
+
+        this.$data.DropDownShow = false;
       }
     },
 
     data(){
       return {
         actionType: 0,
+        DropDownShow: false,
         LeftMenu,
         LeftMenuRevert,
         Logo,
-        Login
+        Login,
+        Avatar
       }
     },
 
     components: {
       DropDown,
       DropLogin,
-      DropRegistration
+      DropRegistration,
+      ProfileDropDown
     }
   }
 </script>
@@ -156,6 +213,26 @@
 
   .menu-fade-leave-active {
       animation: menu-fade-in .25s reverse;
+  }
+
+  .profile-menu-lk {
+    display: flex;
+    padding: 1rem 0;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .profile-menu-avatar {
+    border-radius: 50%;
+    border: 1px solid;
+  }
+
+  .av-prfile-menu-fle {
+    padding: 0.15rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    font-family: Montserrat;
+    gap: 0.25rem;
   }
 
   @keyframes menu-fade-in {

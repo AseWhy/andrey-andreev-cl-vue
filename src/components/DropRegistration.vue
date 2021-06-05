@@ -1,5 +1,5 @@
 <template>
-    <div class="av-dropdown-registration">
+    <form class="av-dropdown-registration">
         <h4 class="dropdown-registration-header">
             Sign Up
         </h4>
@@ -58,20 +58,23 @@
             v-model="confirm"
         />
 
-        <button class="registration">
+        <button class="registration" @click="onRegistration">
             Sign Up
         </button>
 
         <p class="privacy-tip">
             By logging in, you agree to our Terms of Use and <RouterLink to="/">Privacy Policy</RouterLink>
         </p>
-    </div>
+    </form>
 </template>
 
 <script>
+    import 'mosha-vue-toastify/dist/style.css';
     import MaterialInput from "./MaterialInput";
     import Google from "../assets/img/vector/google.svg";
     import FaceBook from "../assets/img/vector/facebook.svg";
+    import { mapActions } from "vuex";
+    import { createToast } from "mosha-vue-toastify";
 
     export default {
         data(){
@@ -87,6 +90,36 @@
         
         components: {
             MaterialInput
+        },
+
+        methods: {
+            ...mapActions([ 'doRegister' ]),
+
+            async onRegistration() {
+                this.$data.active = false;
+
+                try {
+                    if(this.remember) {
+                        localStorage.setItem('login', this.email);
+                    }
+
+                    if(this.password != this.confirm) {
+                        createToast("Пароли не совпадают", { type: 'danger', hideProgressBar: true });
+
+                        return;
+                    }
+
+                    await this.doRegister({ login: this.email, password: this.password });
+
+                    createToast("Вы успешно вошли как: " + this.email, { hideProgressBar: true });
+                } catch(e) {
+                    createToast("Ошибка при попытке входа: " + e.message, { type: 'danger', hideProgressBar: true });
+
+                    console.error(e);
+                } finally {
+                    this.$data.active = true;
+                }
+            }
         }
     }
 </script>

@@ -1,9 +1,11 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
+import About from '../components/pages/About.vue';
 import Contacts from '../components/pages/Contacts.vue';
 import Main from '../components/pages/Main.vue';
-import About from '../components/pages/About.vue';
+import Orders from '../components/pages/Orders.vue';
 import PageNotFound from '../components/pages/PageNotFound.vue';
+import Personal from '../components/pages/Personal.vue';
 
 const routes = [
   {
@@ -28,6 +30,22 @@ const routes = [
     component: About,
     meta: {
         title: 'About the studio'
+    }
+  },
+  {
+    path: "/personal",
+    name: "Personal",
+    component: Personal,
+    meta: {
+      title: 'Personal account'
+    }
+  },
+  {
+    path: "/orders",
+    name: "Orders",
+    component: Orders,
+    meta: {
+      title: 'Orders'
     }
   },
   {

@@ -1,9 +1,14 @@
 import { createStore } from 'vuex';
+import entities from './entities';
 
 export const PUT_LOGIN_STATE = 'putLoginState';
 export const PUT_LEFT_MENU_STATE = 'putLeftMenuState';
 
 export default createStore({
+    modules: {
+        entities,
+    },
+
     state(){
         return {
             leftMenu: false,
